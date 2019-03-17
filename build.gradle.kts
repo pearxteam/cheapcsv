@@ -18,3 +18,7 @@ dependencies {
     compile(kotlin("stdlib-jdk8"))
     compile("org.jsoup:jsoup:$jsoupVersion")
 }
+
+application {
+    mainClassName = "ru.pearx.cheapcsv.CheapCsvKt"
+}
