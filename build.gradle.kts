@@ -4,6 +4,7 @@ val jsoupVersion: String by project
 
 plugins {
     kotlin("platform.jvm")
+    application
 }
 
 group = "ru.pearx.cheapcsv"

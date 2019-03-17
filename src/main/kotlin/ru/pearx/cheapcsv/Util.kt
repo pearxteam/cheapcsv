@@ -6,10 +6,8 @@ import java.nio.file.Path
 import kotlin.system.exitProcess
 
 const val TLD_LIST_URL = "https://www.namecheap.com/domains/new-tlds/explore"
-const val FILENAME_PREFIX = "namecheap_"
-const val FILENAME_SUFFIX = ".csv"
 
-data class Tld(val tldName: String, val whoIsGuard: Boolean, val price: Double, val fee: Boolean, val renewalPrice: Double)
+data class Tld(val tldName: String, val whoIsGuard: Boolean, val price: Double, val fee: Boolean, val renewalPrice: Double, val type: String)
 
 fun readLine(message: String): String? {
     print(message)
@@ -43,17 +41,4 @@ fun Appendable.appendCsvRow(list: List<String>) {
 
 fun Appendable.appendCsvRow(vararg list: String) {
     appendCsvRow(list.toList())
-}
-
-fun printTldsToFile(outputDir: Path, name: String, tlds: Iterator<Tld>) {
-    outputDir.resolve(FILENAME_PREFIX + name + FILENAME_SUFFIX).toFile().printWriter().use { writer ->
-        with(writer) {
-            appendCsvRow("Name", "WhoIs Guard", "Price ($)", "ICANN Fee", "Renewal Price ($)")
-            for (tld in tlds) {
-                kotlin.with(tld) {
-                    appendCsvRow(tldName, if (whoIsGuard) "+" else "-", price.toString(), if (fee) "+" else "-", renewalPrice.toString())
-                }
-            }
-        }
-    }
 }
